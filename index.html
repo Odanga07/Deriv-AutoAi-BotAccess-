@@ -1,9 +1,8 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Access RoyalRoxe$ Deriv Smart AI Bot 🤖</title>
   <style>
     body {
@@ -48,8 +47,43 @@
     button:hover {
       background-color: #095ab2;
     }
-    ul {<li><a href="https://drive.google.com/file/d/179IenDtXU9DtOkW_rA-YQpZXf-3Xmvhf/view" target="_blank">Second Bot</a></li>
-        <li><a href="https://drive.google.com/file/d/1hnN8v3lvcsaiHELyD0pzn0aZgai34Hi7/view" target="_blank">Third Bot</a></li>
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    ul li {margin: 10px 0;
+    }
+    a {
+      color: #0b72e6;
+      font-weight: bold;
+    }
+    #verify-message {
+      color: red;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <img class="logo" src="https://imgur.com/gallery/WqfEnVh" alt="Logo" />
+    <h2>🚀 Get Access to RoyalRoxe AI Bot</h2>
+    <p>To unlock, complete signup and verify your email:</p>
+    <ol style="text-align: left;">
+      <li>✅ <a href="https://track.deriv.com/_u37maJGtrowKqFKZ7JdnQ2Nd7ZgqdRLk/1/" target="_blank">Sign up on Deriv via this link</a></li>
+      <li>📧 Enter your Deriv Email below to unlock Automated Ai bots</li>
+    </ol>
+
+    <div id="verify-section">
+      <input type="email" id="userEmail" placeholder="Your Deriv Email" required />
+      <button onclick="verifyUser()">Verify</button>
+      <p id="verify-message"></p>
+    </div>
+
+    <div id="download-links" style="display:none;">
+      <h3>📥 Download Bots</h3>
+      <ul>
+        <li><a href="https://drive.google.com/file/d/1LeUp1vWzwhhmUvn065lN0ajoT2KtWltp/view" target="_blank">Royalbeast Secret 🤖</a></li>
+        <li><a href="https://drive.google.com/file/d/179IenDtXU9DtOkW_rA-YQpZXf-3Xmvhf/view" target="_blank">Second Bot</a></li><li><a href="https://drive.google.com/file/d/1hnN8v3lvcsaiHELyD0pzn0aZgai34Hi7/view" target="_blank">Third Bot</a></li>
       </ul>
     </div>
   </div>
@@ -73,87 +107,46 @@
 
     async function verifyUser() {
       const email = document.getElementById('userEmail').value.trim();
-      const crid = document.getElementById('userCRID').value.trim();
-      const messageEl = document.getElementById('verify-message');list-style: none;
-      padding-left: 0;
-    }
-    ul li {
-      margin: 10px 0;
-    }
-    a {
-      color: #0b72e6;
-      font-weight: bold;
-    }
-    #verify-message {
-      color: red;
-      margin-top: 10px;
-    }
-  </style>
-</head>
-<body>
-  <div class="container">
-    <img class="logo" src="https://drive.google.com/file/d/1-jn-V_NgW_q3sl0F-NuyBLHUg_9LqQoM/view" alt="Logo" />
-    <h2>🚀 Get Access to RoyalRoxe AI Bot</h2>
-    <p>To unlock, complete signup and verify your CR ID:</p>
-    <ol style="text-align: left;">
-      <li>✅ <a href="https://track.deriv.com/_u37maJGtrowKqFKZ7JdnQ2Nd7ZgqdRLk/1/" target="_blank">Sign up on Deriv via this link</a></li>
-      <li>📧 Enter your Deriv Email and CR ID below to unlock Automated Ai bots</li>
-    </ol>
+      const messageEl = document.getElementById('verify-message');
+      const downloadsEl = document.getElementById('download-links');
 
-    <div id="verify-section">
-      <input type="email" id="userEmail" placeholder="Your Deriv Email" required />
-      <input type="text" id="userCRID" placeholder="Your CR ID" required />
-      <button onclick="verifyUser()">Verify</button>
-      <p id="verify-message"></p>
-    </div>
-
-    <div id="download-links" style="display:none;">
-      <h3>📥 Download Bots</h3>
-      <ul>
-        <li><a href="https://drive.google.com/file/d/1LeUp1vWzwhhmUvn065lN0ajoT2KtWltp/view" target="_blank">Royalbeast Secret 🤖</a></li>const downloadsEl = document.getElementById('download-links');
-
-      if (!email || !crid) {
-        messageEl.textContent = "Please enter both your Deriv Email and CR ID.";
+      if (!email) {
+        messageEl.textContent = "Please enter your Deriv Email.";
         downloadsEl.style.display = 'none';
         return;
       }
 
-      try {
-        const userDocRef = doc(db, "users", email);
+      try {const userDocRef = doc(db, "users", email);
         const userSnap = await getDoc(userDocRef);
 
         if (userSnap.exists()) {
           const userData = userSnap.data();
 
-          if (userData.crId && userData.crId.toLowerCase() === crid.toLowerCase()) {
-            if (!userData.createdAt) {
-              messageEl.textContent = "User data incomplete: missing createdAt field.";
-              downloadsEl.style.display = "none";
-              return;
-            }
-
-            const createdAt = new Date(userData.createdAt);
-            const now = new Date();
-            const diffDays = Math.floor((now - createdAt) / (1000 * 60 * 60 * 24));
-
-            if (diffDays > 4) {
-              messageEl.textContent = "Access expired. Please contact support.";
-              downloadsEl.style.display = "none";
-              return;
-            }
-
-            messageEl.textContent = "";
-            downloadsEl.style.display = "block";
-          } else {messageEl.textContent = "CR ID does not match our records.";
+          if (!userData.createdAt) {
+            messageEl.textContent = "Missing registration date.";
             downloadsEl.style.display = "none";
+            return;
           }
+
+          const createdAt = new Date(userData.createdAt);
+          const now = new Date();
+          const diffDays = Math.floor((now - createdAt) / (1000 * 60 * 60 * 24));
+
+          if (diffDays > 4) {
+            messageEl.textContent = "Access expired. Please contact support.";
+            downloadsEl.style.display = "none";
+            return;
+          }
+
+          messageEl.textContent = "";
+          downloadsEl.style.display = "block";
         } else {
           messageEl.textContent = "No user found with this email.";
           downloadsEl.style.display = "none";
         }
       } catch (error) {
         console.error("Error verifying user:", error);
-        messageEl.textContent = "Error verifying user. Please try again later.";
+        messageEl.textContent = "Error verifying user. Try again.";
         downloadsEl.style.display = "none";
       }
     }
