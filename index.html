@@ -87,47 +87,43 @@
       </ul>
     </div>
   </div>
+```html
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-    import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+  const firebaseConfig = {
+    apiKey: "AIzaSyBVCdR_HV51EL-Ii1Mslo55wiskxWyqo5U",
+    authDomain: "royalroxe-autoai-access.firebaseapp.com",
+    projectId: "royalroxe-autoai-access",
+    storageBucket: "royalroxe-autoai-access.appspot.com",
+    messagingSenderId: "384220157414",
+    appId: "1:384220157414:web:4b7672e466176342977227",
+    measurementId: "G-BGPD7M9Q7G"
+  };
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyBVCdR_HV51EL-Ii1Mslo55wiskxWyqo5U",
-      authDomain: "royalroxe-autoai-access.firebaseapp.com",
-      projectId: "royalroxe-autoai-access",
-      storageBucket: "royalroxe-autoai-access.appspot.com",
-      messagingSenderId: "384220157414",
-      appId: "1:384220157414:web:4b7672e466176342977227",
-      measurementId: "G-BGPD7M9Q7G"
-    };
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
 
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
+  async function verifyUser() {
+    const email = document.getElementById('userEmail').value.trim();
+    const crid = document.getElementById('userCRID').value.trim();
+    const messageEl = document.getElementById('verify-message');const downloadsEl = document.getElementById('download-links');
 
-    async function verifyUser() {
-      const email = document.getElementById('userEmail').value.trim();
-      const messageEl = document.getElementById('verify-message');
-      const downloadsEl = document.getElementById('download-links');
+    if (!email || !crid) {
+      messageEl.textContent = "Please enter both your Deriv Email and CR ID.";
+      downloadsEl.style.display = 'none';
+      return;
+    }
 
-      if (!email) {
-        messageEl.textContent = "Please enter your Deriv Email.";
-        downloadsEl.style.display = 'none';
-        return;
-      }
+    try {
+      const userDocRef = doc(db, "users", email);
+      const userSnap = await getDoc(userDocRef);
 
-      try {const userDocRef = doc(db, "users", email);
-        const userSnap = await getDoc(userDocRef);
+      if (userSnap.exists()) {
+        const userData = userSnap.data();
 
-        if (userSnap.exists()) {
-          const userData = userSnap.data();
-
-          if (!userData.createdAt) {
-            messageEl.textContent = "Missing registration date.";
-            downloadsEl.style.display = "none";
-            return;
-          }
-
+        if (userData.crId && userData.crId.toLowerCase() === crid.toLowerCase()) {
           const createdAt = new Date(userData.createdAt);
           const now = new Date();
           const diffDays = Math.floor((now - createdAt) / (1000 * 60 * 60 * 24));
@@ -141,16 +137,20 @@
           messageEl.textContent = "";
           downloadsEl.style.display = "block";
         } else {
-          messageEl.textContent = "No user found with this email.";
+          messageEl.textContent = "CR ID does not match our records.";
           downloadsEl.style.display = "none";
         }
-      } catch (error) {
-        console.error("Error verifying user:", error);
-        messageEl.textContent = "Error verifying user. Try again.";
+      } else {
+        messageEl.textContent = "No user found with this email.";
         downloadsEl.style.display = "none";
       }
+    } catch (error) {console.error("Error verifying user:", error);
+      messageEl.textContent = "Error verifying user. Please try again later.";
+      downloadsEl.style.display = "none";
     }
-  </script>
+  }
+</script>
 </body>
 </html>
-
+```     
+  
