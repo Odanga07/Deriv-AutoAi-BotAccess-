@@ -8,15 +8,10 @@
     body {
       font-family: 'Segoe UI', sans-serif;
       background: linear-gradient(45deg, #0f0f0f, #1c1c1c);
-      animation: gradient 5s infinite;
       color: #f5c842;
       margin: 0;
       padding: 20px;
-    }
-    @keyframes gradient {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+      transition: background 0.5s;
     }
     .container {
       max-width: 700px;
@@ -59,11 +54,11 @@
       position: absolute;
       top: 20px;
       right: 20px;
+      width: 30px;
+      height: 30px;
       border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      background: #fff;
-      color: #000;
+      background: linear-gradient(45deg, #007bff, #fff, #2ecc71);
+      cursor: pointer;
     }
     .whatsapp-float {
       position: fixed;
@@ -78,7 +73,7 @@
   </style>
 </head>
 <body>
-  <button id="theme-toggle" onclick="toggleTheme()">🌙️</button>
+  <button id="theme-toggle" onclick="toggleTheme()"></button>
   <div class="container">
     <h2>🚀 RoyalRoxe AutoAi Bots</h2>
     <p>📈 Get access to top Deriv smart bots. To unlock:</p>
@@ -98,7 +93,12 @@
       </ul>
       <button onclick="window.open('https://deriv.com', '_blank')" style="background: linear-gradient(45deg, #8B0A1A, #6c5ce7);">Trade on Deriv</button>
     </div>
-    <iframe src="https://s.tradingview.com/widgetembed/?symbol=DERIV:1HZ100V&interval=1&hidesidetoolbar=1&theme=dark&studies=candle" width="100%" height="400" frameborder="0"></iframe>
+    <select id="market-select" onchange="changeMarket(this.value)">
+      <option value="DERIV:1HZ100V">1HZ100V</option>
+      <option value="DERIV:1HZ200V">1HZ200V</option>
+      <option value="DERIV:1HZ300V">1HZ300V</option>
+    </select>
+    <iframe id="tradingview" src="https://s.tradingview.com/widgetembed/?symbol=DERIV:1HZ100V&interval=1&hidesidetoolbar=1&theme=dark&studies=candle" width="100%" height="400" frameborder="0"></iframe>
   </div>
   <a href="https://wa.me/254105646844" target="_blank" class="whatsapp-float">
     <img src="https://cdn.icon-icons.com/icons2/840/PNG/128/Whatsapp_icon-icons.com_66931.png" width="40" alt="WhatsApp">
@@ -114,7 +114,10 @@
       }
     }
     function toggleTheme() {
-      document.body.style.background = document.body.style.background === 'linear-gradient(45deg, #0f0f0f, #1c1c1c)' ? 'linear-gradient(45deg, #fff, #ccc)' : 'linear-gradient(45deg, #0f0f0f, #1c1c1c)';
+      document.body.style.background = document.body.style.background === 'linear-gradient(45deg, #0f0f0f, #1c1c1c)' ? 'linear-gradient(45deg, #f0f0f0, #ccc)' : 'linear-gradient(45deg, #0f0f0f, #1c1c1c)';
+    }
+    function changeMarket(market) {
+      document.getElementById('tradingview').src = `https://s.tradingview.com/widgetembed/?symbol=${market}&interval=1&hidesidetoolbar=1&theme=dark&studies=candle`;
     }
   </script>
 </body>
