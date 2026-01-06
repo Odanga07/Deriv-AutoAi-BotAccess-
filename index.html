@@ -7,10 +7,16 @@
   <style>
     body {
       font-family: 'Segoe UI', sans-serif;
-      background: #0f0f0f;
+      background: linear-gradient(45deg, #0f0f0f, #1c1c1c);
+      animation: gradient 5s infinite;
       color: #f5c842;
       margin: 0;
       padding: 20px;
+    }
+    @keyframes gradient {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
     }
     .container {
       max-width: 700px;
@@ -46,10 +52,8 @@
       list-style: none;
       padding: 0;
     }
-    ul li {margin: 10px 0;
-    }
-    .chart {
-      margin-top: 40px;
+    ul li {
+      margin: 10px 0;
     }
   </style>
 </head>
@@ -62,25 +66,43 @@
       <li>✅ <a href="https://track.deriv.com/_u37maJGtrowKqFKZ7JdnQ2Nd7ZgqdRLk/1/" target="_blank">Register on Deriv</a></li>
       <li>📧 Send your CR ID & Email to <strong>+254105646844</strong> via WhatsApp</li>
     </ol>
-
     <a href="https://wa.me/254105646844?text=Hi,%20I%20signed%20up%20on%20Deriv%20and%20want%20bot%20access." target="_blank">
       <button>📲 Get Access via WhatsApp</button>
     </a>
-
+    <button onclick="window.open('https://deriv.com', '_blank')">Trade on Deriv</button>
     <div id="download-links" style="margin-top: 30px;">
       <h3>📥 Download Bots</h3>
       <ul>
-        <li><a href="https://drive.google.com/file/d/1LeUp1vWzwhhmUvn065lN0ajoT2KtWltp/view" target="_blank">Royalbeast Secret 🤖</a></li>
-        <li><a href="https://drive.google.com/file/d/179IenDtXU9DtOkW_rA-YQpZXf-3Xmvhf/view" target="_blank">Market Killer 🤖</a></li><li><a href="https://drive.google.com/file/d/1hnN8v3lvcsaiHELyD0pzn0aZgai34Hi7/view" target="_blank">Auto Switcher 2026 🤖</a></li>
+        <li><a href="#" onclick="checkCode('Royalbeast Secret 🤖', 'https://drive.google.com/file/d/1LeUp1vWzwhhmUvn065lN0ajoT2KtWltp/view')">Royalbeast Secret 🤖</a></li>
+        <li><a href="#" onclick="checkCode('Market Killer 🤖', 'https://drive.google.com/file/d/179IenDtXU9DtOkW_rA-YQpZXf-3Xmvhf/view')">Market Killer 🤖</a></li>
+        <li><a href="#" onclick="checkCode('Auto Switcher 2026 🤖', 'https://drive.google.com/file/d/1hnN8v3lvcsaiHELyD0pzn0aZgai34Hi7/view')">Auto Switcher 2026 🤖</a></li>
       </ul>
     </div>
-
-    <div class="chart">
-      <h3 style="color:#00ffe1;">Live Market Chart</h3>
-      <!-- TradingView Widget BEGIN -->
-      <iframe src="https://s.tradingview.com/widgetembed/?frameElementId=tradingview_6a2b4&symbol=DERIV:1HZ100V&interval=1&hidesidetoolbar=1&symboledit=1&hideideas=1&theme=dark&style=1&timezone=Africa%2FNairobi&studies=[]" width="100%" height="400" frameborder="0" allowtransparency="true" scrolling="no"></iframe>
-      <!-- TradingView Widget END -->
-    </div>
+    <select onchange="updateTradingView(this.value)">
+      <option value="DERIV:1HZ100V">1HZ100V</option>
+      <option value="DERIV:OTC_DX1">OTC_DX1</option>
+    </select>
+    <div id="tradingview"></div>
+    <a href="https://wa.me/254105646844" target="_blank" style="position: fixed; bottom: 20px; left: 20px;">
+      <button>WhatsApp</button>
+    </a>
   </div>
+
+  <script>
+    function checkCode(botName, link) {
+      const code = prompt('Enter access code:');
+      if (code === 'RB2026') {
+        window.open(link, '_blank');
+      } else {
+        alert('Incorrect code. Please try again.');
+      }
+    }
+    function updateTradingView(symbol) {
+      const iframe = `<iframe src="https://s.tradingview.com/widgetembed/?symbol=${symbol}&interval=1&hidesidetoolbar=1" width="100%" height="400" frameborder="0"></iframe>`;
+      document.getElementById('tradingview').innerHTML = iframe;
+    }
+  </script>
 </body>
 </html>
+
+You can copy-paste this into your GitHub repo. Let me know if you need any changes! 😊
