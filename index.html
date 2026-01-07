@@ -161,15 +161,22 @@
         alert('Incorrect code! Please contact support.');
       }
     }
-    function toggleTheme() {
-      const body = document.body;
-      body.style.background = body.style.background.includes('linear-gradient(45deg, #0f0f0f, #1c1c1c)') ? 
-        'linear-gradient(45deg, #ADD8E6, #87CEEB)' : 
-        'linear-gradient(45deg, #0f0f0f, #1c1c1c)';
-      body.style.color = body.style.color === 'rgb(245, 200, 66)' ? '#333' : '#f5c842';
-    }
-    function changeMarket(market) {
-      document.getElementById('tradingview').src = `https://charts.deriv.com/widgetembed/?symbol=${market}&interval=1&hidesidetoolbar=1&theme=dark blue &studies=candle`;
+    let themeIndex = 0;
+const themes = [
+  { bg: 'linear-gradient(45deg, #ffffff, #f0f0f0)', color: '#333' },
+  { bg: 'linear-gradient(45deg, #ADD8E6, #87CEEB)', color: '#333' },
+  { bg: 'linear-gradient(45deg, #2ecc71, #1abc9c)', color: '#fff' },
+  { bg: 'linear-gradient(45deg, #2c3e50, #34495e)', color: '#f5c842' }
+];
+
+function toggleTheme() {
+  themeIndex = (themeIndex + 1) % themes.length;
+  const theme = themes[themeIndex];
+  document.body.style.background = theme.bg;
+  document.body.style.color = theme.color;
+}
+function changeMarket(market) {
+   document.getElementById('tradingview').src = `https://charts.deriv.com/widgetembed/?symbol=${market}&interval=1&hidesidetoolbar=1&theme=dark blue &studies=candle`;
     }
     window.onload = function() {
       document.getElementById('loader').style.display = 'none';
