@@ -165,4 +165,30 @@
     </footer>
   </div>
 
-  <!-- Floating WhatsApp button -->
+  <!-- Floating WhatsApp button --><a href="https://wa.me/254105646844" class="whatsapp-float" target="_blank" style="position: fixed; bottom: 20px; right: 20px; background: #25D366; color: white; border-radius: 50%; padding: 15px; font-size: 22px; text-align: center; text-decoration: none; z-index: 1000;">
+    💬
+  </a>
+
+  <!-- Theme Toggle Button -->
+  <div id="theme-toggle" title="Toggle Light/Dark Mode" aria-label="Toggle Light/Dark Mode" role="button" tabindex="0">
+    <!-- Sun icon -->
+    <svg id="theme-icon" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" focusable="false">
+      <path d="M12 4.354a7.646 7.646 0 100 15.292 7.646 7.646 0 000-15.292zm0 13.292a5.646 5.646 0 110-11.292 5.646 5.646 0 010 11.292z"/>
+    </svg>
+  </div>
+
+  <script>
+    function unlockLink(fileId) {
+      const code = document.getElementById('accessCode').value.trim();
+      if(code === 'RB2026') {
+        window.open(`https://drive.google.com/file/d/${fileId}/view`, '_blank');
+      } else {
+        alert("Invalid Access Code. Please enter the correct code.");
+      }
+    }
+
+    const themeToggle = document.getElementById('theme-toggle');
+    const themeIcon = document.getElementById('theme-icon');
+
+    function setLightMode() {
+      document.body.classList.add('light-mode');
