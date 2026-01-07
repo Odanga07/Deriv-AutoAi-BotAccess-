@@ -16,7 +16,6 @@
     .container {
       max-width: 700px;
       margin: 30px auto;
-      background: #1c1c1c;
       padding: 30px;
       border-radius: 10px;
       box-shadow: 0 0 15px #00ffe1;
@@ -125,7 +124,7 @@
   <div class="container">
     <h2>🤖 RoyalRoxe AutoAi Bot Access</h2>
     <p>📈 To Access and unlock automated trading Robots:</p>
-    <ol style="text-align: left;">
+    <ol id="deriv-steps" style="text-align: left;">
       <li>✅ <a href="https://track.deriv.com/_u37maJGtrowKqFKZ7JdnQ2Nd7ZgqdRLk/1/" target="_blank">Sign up on Deriv via this link</a></li>
       <li>📧 Send your Deriv CR ID & Email via Contact below for quick activation to Access Autotrading Robots👾</li>
     </ol>
@@ -170,6 +169,7 @@
       const theme = themes[themeIndex];
       document.body.style.background = theme.bg;
       document.body.style.color = theme.color;
+      document.querySelector('.container').style.background = theme.bg;
       document.querySelectorAll('ol li').forEach(li => {
         li.style.color = theme.color;
       });
